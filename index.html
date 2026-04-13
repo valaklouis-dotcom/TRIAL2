@@ -160,24 +160,33 @@ src="https://media.tenor.com/WsQhZl6JH9AAAAAC/cute-dog.gif">
 // ===== CHUYỂN TRANG MƯỢT =====
 function next(id){
 
-  document.querySelectorAll('.page').forEach(p=>{
-    p.style.opacity="0";
-    setTimeout(()=>p.classList.remove('active'),300);
-  });
+  let current = document.querySelector('.page.active');
 
-  setTimeout(()=>{
-    let page=document.getElementById(id);
-    page.classList.add('active');
+  if(current){
+    current.style.opacity="0";
 
-    requestAnimationFrame(()=>{
-      page.style.opacity="1";
-    });
+    setTimeout(()=>{
+      current.classList.remove('active');
 
-  },300);
+      let nextPage = document.getElementById(id);
+      nextPage.classList.add('active');
+
+      // 👉 FORCE reload GIF
+      nextPage.querySelectorAll("img").forEach(img=>{
+        let src = img.src;
+        img.src = "";
+        img.src = src;
+      });
+
+      requestAnimationFrame(()=>{
+        nextPage.style.opacity="1";
+      });
+
+    },300);
+  }
 
   runStory(id);
 }
-
 // ===== CHAT BOX =====
 let chatBox=document.createElement("div");
 chatBox.style.position="fixed";
