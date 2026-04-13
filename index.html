@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💖 Love Page 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+  text-align: center;
+  color: white;
+  overflow-x: hidden;
+}
+
+@keyframes gradientMove {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.page { display: none; padding: 20px; max-width: 600px; margin: auto; }
+.active { display: block; }
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(28px,6vw,60px);
+  text-shadow: 0 0 20px pink;
+}
+
+p { font-size: clamp(14px,3.5vw,20px); }
+
+button {
+  font-family: 'Pacifico', cursive;
+  background: linear-gradient(45deg, #ff69b4, #ff85c1);
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 10px pink;
+}
+
+input {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  width: 90%;
+  max-width: 400px;
+}
+
+.cat, .dog {
+  width: 140px;
+  margin: 10px;
+  cursor: pointer;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px pink);
+}
+
+@keyframes float {
+  0%{transform:translateY(0);}
+  50%{transform:translateY(-15px);}
+  100%{transform:translateY(0);}
+}
+
+.cat:active, .dog:active {
+  transform: scale(1.2) rotate(5deg);
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <h1>💖 Chào người em yêu ạ! 💖</h1>
+  <p>Nhấn vào đây để tâm sự nhá Bae iu ơi!</p>
+
+  <img class="cat" onclick="catTalk('Em nhớ anh 💖')" 
+src="https://media.tenor.com/2roX3uxz_68AAAAC/cute-cat.gif">
+
+<img class="dog" onclick="dogTalk('Anh bấm nhanh lên 😤')" 
+src="https://media.tenor.com/WsQhZl6JH9AAAAAC/cute-dog.gif">
+
+  <br>
+  <button onclick="next('p2')">💘 Bắt đầu 💘</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <h1>Anh có thương em hông?</h1>
+  <button onclick="next('p3')">Anh có 💖</button>
+  <button onclick="next('p3')">Nào dám trả lời không 😏</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <img class="cat" src="https://media.tenor.com/YjG7TqvK9fQAAAAC/cat-love.gif">
+  <img class="dog" src="https://media.tenor.com/1i9Zk0z9l9sAAAAC/dog-cute.gif">
+  <h1>Em cũng thương anh lắm 💖</h1>
+  <button onclick="next('p4')">Tiếp ➡️</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h1>Dạo này anh cảm thấy thế nào ạ?</h1>
+  <input id="q1">
+  <br><button onclick="next('p5')">➡️</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+  <h1>Món ăn yêu thích của anh là gì zọ?</h1>
+  <input id="q2">
+  <br><button onclick="next('p6')">➡️</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="p6">
+  <h1>Bây giờ nếu được nghỉ nguyên vẹn 1 ngày Bae đang muốn làm gì nhất?</h1>
+  <input id="q3">
+  <br><button onclick="next('p7')">➡️</button>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page" id="p7">
+  <h1>Bae thích được tặng quà gì nhất nè?</h1>
+  <input id="q4">
+  <br><button onclick="next('p8')">➡️</button>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page" id="p8">
+  <h1>Điều gì ở em làm Bae cảm thấy chưa hài lòng?</h1>
+  <input id="q5">
+  <br><button onclick="sendAllData(); next('p9')">💌 Gửi</button>
+</div>
+
+<!-- PAGE 9 -->
+<div class="page" id="p9">
+  <h1>💖 Em đã ghi nhận rồi 💖</h1>
+  <p>I love you 💘</p>
+</div>
+
+<script>
+
+// ===== CHUYỂN TRANG MƯỢT =====
+function next(id){
+
+  document.querySelectorAll('.page').forEach(p=>{
+    p.style.opacity="0";
+    setTimeout(()=>p.classList.remove('active'),300);
+  });
+
+  setTimeout(()=>{
+    let page=document.getElementById(id);
+    page.classList.add('active');
+
+    requestAnimationFrame(()=>{
+      page.style.opacity="1";
+    });
+
+  },300);
+
+  runStory(id);
+}
+
+// ===== CHAT BOX =====
+let chatBox=document.createElement("div");
+chatBox.style.position="fixed";
+chatBox.style.bottom="10px";
+chatBox.style.left="50%";
+chatBox.style.transform="translateX(-50%)";
+chatBox.style.width="95%";
+chatBox.style.maxWidth="420px";
+chatBox.style.height="220px";
+chatBox.style.overflowY="auto";
+chatBox.style.display="flex";
+chatBox.style.flexDirection="column";
+chatBox.style.gap="8px";
+chatBox.style.padding="10px";
+chatBox.style.zIndex="9999";
+
+document.body.appendChild(chatBox);
+
+// ===== AVATAR =====
+const avatarURL="https://i.pinimg.com/564x/6b/3a/76/6b3a76c89bb7c5c96d9d1c4c4d1c8b7c.jpg";
+
+// ===== MESSAGE =====
+function addMessage(text){
+
+  let row=document.createElement("div");
+  row.style.display="flex";
+  row.style.alignItems="flex-end";
+  row.style.gap="6px";
+
+  let avatar=document.createElement("img");
+  avatar.src=avatarURL;
+  avatar.style.width="28px";
+  avatar.style.height="28px";
+  avatar.style.borderRadius="50%";
+
+  let bubble=document.createElement("div");
+  bubble.style.background="#ff4da6";
+  bubble.style.color="white";
+  bubble.style.padding="10px 14px";
+  bubble.style.borderRadius="18px";
+  bubble.style.maxWidth="70%";
+  bubble.style.fontSize="14px";
+  bubble.style.opacity="0";
+  bubble.style.transform="translateY(8px)";
+
+  row.appendChild(avatar);
+  row.appendChild(bubble);
+  chatBox.appendChild(row);
+
+  chatBox.scrollTo({top:chatBox.scrollHeight,behavior:"smooth"});
+
+  setTimeout(()=>{
+    bubble.style.transition="0.25s";
+    bubble.style.opacity="1";
+    bubble.style.transform="translateY(0)";
+  },50);
+
+  typeText(bubble,text);
+}
+
+// ===== TYPING (FIX KHÔNG BỊ GHI ĐÈ) =====
+function typeText(el,text){
+  let i=0;
+  el.innerHTML="";
+
+  let timer=setInterval(()=>{
+    el.innerHTML+=text[i];
+    i++;
+
+    if(i>=text.length){
+      clearInterval(timer);
+    }
+
+    chatBox.scrollTo({top:chatBox.scrollHeight,behavior:"smooth"});
+
+  },20);
+}
+
+// ===== TYPING INDICATOR =====
+let typingEl=null;
+
+function showTyping(){
+  hideTyping();
+
+  typingEl=document.createElement("div");
+  typingEl.innerHTML="💬 Đang nhập...";
+  typingEl.style.fontSize="12px";
+  typingEl.style.opacity="0.7";
+  typingEl.style.color="white";
+
+  chatBox.appendChild(typingEl);
+  chatBox.scrollTo({top:chatBox.scrollHeight,behavior:"smooth"});
+}
+
+function hideTyping(){
+  if(typingEl){
+    typingEl.remove();
+    typingEl=null;
+  }
+}
+
+// ===== STORY =====
+function runStory(page){
+
+  showTyping();
+
+  setTimeout(()=>{
+    hideTyping();
+
+    const story={
+      p2:"Có thương hong zạ 😏",
+      p3:"Em biết mà 😚",
+      p4:"Dạo này bồ ổn hong 💖",
+      p5:"Thích ăn gì em bao liền nè 😋",
+      p6:"Muốn làm gì nói thiệt nha 😏",
+      p7:"Chỉ cần là thứ Bae thích, em chiều hết nấc luôngg 🎁",
+      p8:"Thành thật nhưng nhẹ nhàng nha 😢",
+      p9:"Em đọc hết rồi 💘 Em thương anh 💖"
+    };
+
+    if(story[page]){
+      addMessage(story[page]);
+    }
+
+  },900);
+}
+
+// ===== TIM CLICK (OPTIMIZED) =====
+function shootHeart(x,y){
+
+  let h=document.createElement("div");
+  h.innerHTML=["💘","💖","💕"][Math.floor(Math.random()*3)];
+
+  h.style.position="fixed";
+  h.style.left=x+"px";
+  h.style.top=y+"px";
+  h.style.fontSize="18px";
+  h.style.pointerEvents="none";
+
+  document.body.appendChild(h);
+
+  let up=setInterval(()=>{
+    let t=parseFloat(h.style.top);
+    h.style.top=(t-4)+"px";
+
+    if(t<-20){
+      h.remove();
+      clearInterval(up);
+    }
+  },20);
+}
+
+document.addEventListener("click",e=>{
+  shootHeart(e.clientX,e.clientY);
+});
+
+// ===== CUPID (GIẢM LAG) =====
+function createCupid(){
+
+  let c=document.createElement("img");
+  c.src="https://cdn-icons-png.flaticon.com/512/833/833472.png";
+
+  c.style.position="fixed";
+  c.style.left="-60px";
+  c.style.top=Math.random()*80+"vh";
+  c.style.width=(35+Math.random()*25)+"px";
+
+  document.body.appendChild(c);
+
+  let speed=2+Math.random()*2.5;
+
+  let move=setInterval(()=>{
+    let l=parseFloat(c.style.left);
+    c.style.left=(l+speed)+"px";
+
+    if(l>window.innerWidth){
+      c.remove();
+      clearInterval(move);
+    }
+  },30);
+}
+
+setInterval(createCupid,1200);
+
+// ===== TIM RƠI (GIẢM NẶNG) =====
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.innerHTML=["💖","💘","💕"][Math.floor(Math.random()*3)];
+
+  h.style.position="fixed";
+  h.style.left=Math.random()*100+"vw";
+  h.style.top="-10px";
+
+  document.body.appendChild(h);
+
+  let fall=setInterval(()=>{
+    let t=parseFloat(h.style.top);
+    h.style.top=(t+2.5)+"px";
+
+    if(t>window.innerHeight){
+      h.remove();
+      clearInterval(fall);
+    }
+  },30);
+},250);
+
+// ===== GOOGLE FORM =====
+const GOOGLE_FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSdYuCVEM7QCvCqjvtUc6SuVrNW1flerqN3PaKQ4poPHXj2uIA/formResponse";
+
+function sendAllData(){
+  let data=new FormData();
+
+  data.append("entry.137169317", q1?.value||"");
+  data.append("entry.454111835", q2?.value||"");
+  data.append("entry.1872124055", q3?.value||"");
+  data.append("entry.669638336", q4?.value||"");
+  data.append("entry.559059606", q5?.value||"");
+
+  fetch(GOOGLE_FORM_ACTION,{
+    method:"POST",
+    mode:"no-cors",
+    body:data
+  });
+}
+
+</script>
+
+</body>
+</html>
