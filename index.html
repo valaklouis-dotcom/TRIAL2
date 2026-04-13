@@ -80,8 +80,8 @@ input {
 
 <body>
 
-<audio autoplay loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3">
 </audio>
 
 <!-- PAGE 1 -->
@@ -407,6 +407,28 @@ function sendAllData(){
     body:data
   });
 }
+  // ===== NHẠC NỀN =====
+const audio = document.getElementById("bgm");
+
+function fadeInAudio(){
+  audio.volume = 0;
+  audio.play().catch(()=>{});
+
+  let vol = 0;
+  let fade = setInterval(()=>{
+    vol += 0.05;
+
+    if(vol >= 0.5){
+      audio.volume = 0.5;
+      clearInterval(fade);
+    } else {
+      audio.volume = vol;
+    }
+
+  },200);
+}
+
+document.addEventListener("click", fadeInAudio, { once: true });
 
 </script>
 
