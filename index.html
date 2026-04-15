@@ -81,7 +81,7 @@ input {
 <body>
 
 <audio id="bgm" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/22/audio_270f49b7b8.mp3">
+  <source src="Người Đầu Tiên.mp3.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 1 -->
@@ -415,6 +415,9 @@ function sendAllData(){
   // ===== NHẠC NỀN =====
 const audio = document.getElementById("bgm");
 
+document.addEventListener("click", () => {
+  audio.play().catch(()=>{});
+}, { once: true });
 function fadeInAudio(){
   audio.volume = 0;
   audio.play().catch(()=>{});
